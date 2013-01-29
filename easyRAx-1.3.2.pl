@@ -1071,7 +1071,7 @@ sub bkl_tree {
           print "Generating BKL Trees...\n";
           $cmd =
               $raxml_ver
-            . "-f d -m "
+            . "-f d -f 12345 -m "
             . $model . " -s "
             . $alignmentName . " -N "
             . $num_infs . " -n "
