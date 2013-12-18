@@ -50,8 +50,8 @@ sub detect_multi_core {
 
      }
      elsif ( $os_name eq 'darwin' ) {
-	  
-	  # Only tested with OSX 10.4+ - will not work with < OSX 10.2
+       
+       # Only tested with OSX 10.4+ - will not work with < OSX 10.2
           $pprocs = `system_profiler | grep -i "Number Of Processors:" | tr -d '[aA-zZ]:[[:punct:]]:\n'`;
           $lprocs = `system_profiler | grep -i "Total Number Of Cores:" | tr -d '[aA-zZ]:[[:punct:]]:\n'`;
 
@@ -148,14 +148,14 @@ sub menu {
                     &menu;
                }
                elsif ( $version_one eq "Standard" ) {
-                    $raxml_ver   = "raxmlHPC-PTHREADS -T $lprocs ";
+                    $raxml_ver   = "raxmlHPC-PTHREADS728 -T $lprocs ";
                     $version_one = "PTHREADS";
                     $version_two = "Standard";
                     print `clear`, "\n";
                     &menu;
                }
                elsif ( $version_one eq "PTHREADS+SSE3" ) {
-                    $raxml_ver   = "raxmlHPC ";
+                    $raxml_ver   = "raxmlHPC728 ";
                     $version_one = "Standard";
                     $version_two = "PTHREADS";
                     $enabled     = "Off";
@@ -163,7 +163,7 @@ sub menu {
                     &menu;
                }
                elsif ( $version_one eq "Standard+SSE3" ) {
-                    $raxml_ver   = "raxmlHPC-PTHREADS -T $lprocs ";
+                    $raxml_ver   = "raxmlHPC-PTHREADS728 -T $lprocs ";
                     $version_one = "PTHREADS";
                     $version_two = "Standard";
                     $enabled     = "Off";
@@ -175,7 +175,7 @@ sub menu {
           case /S/i {
 
                if ( $version_one eq "PTHREADS" ) {
-                    $raxml_ver   = "raxmlHPC-PTHREADS-SSE3 -T $lprocs ";
+                    $raxml_ver   = "raxmlHPC-PTHREADS-SSE3728 -T $lprocs ";
                     $version_one = "PTHREADS+SSE3";
                     $enabled     = "On";
                     print `clear`, "\n";
@@ -1071,7 +1071,7 @@ sub bkl_tree {
           print "Generating BKL Trees...\n";
           $cmd =
               $raxml_ver
-            . "-f d -m "
+            . "-f d -p 12345 -m "
             . $model . " -s "
             . $alignmentName . " -N "
             . $num_infs . " -n "
@@ -1104,7 +1104,7 @@ sub bootstrapping {
           chdir($bs_directory);
           $cmd =
               $raxml_ver
-            . "-f d -m "
+            . "-f d -p 12345 -m "
             . $model . " -s "
             . $alignmentName
             . $option_g
@@ -1163,7 +1163,7 @@ sub obtain_confidence_values {
      print "\nObtaining Confidence Values...";
      $cmd =
          $raxml_ver
-       . "-f b -m "
+       . "-f b -p 12345 -m "
        . $model . " -s "
        . $alignmentName . " -z "
        . "RAxML_bootstrap."
